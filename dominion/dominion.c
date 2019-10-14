@@ -959,7 +959,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         //discard card from hand
         discardCard(handPos, currentPlayer, state, 0);
 
-		if (choice1)
+        if (choice1)
         {
             state->coins = state->coins + 2;
         }
