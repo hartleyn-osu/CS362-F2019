@@ -1,6 +1,9 @@
 #include "dominion.h"
 #include "dominion_helpers.h"
 #include "card_effect_handlers.h"
+#include <stdio.h>
+#include "rngs.h"
+#include <stdlib.h>
 
 int handleBaronCardEffect(int choice1, int handPos, int currentPlayer, struct gameState *state)
 {
@@ -131,8 +134,8 @@ int handleAmbassadorCardEffect(int choice1, int choice2, int handPos, int curren
     int trash_card_index;
 
     // BUG 1
-    //if (choice2 > 2 || choice2 < 0)
-    if (choice2 < 0)
+    if (choice2 > 2 || choice2 < 0)
+    //if (choice2 < 0)
     {
         return -1;
     }
@@ -258,8 +261,8 @@ int handleMineCardEffect(int choice1, int choice2, int handPos, int currentPlaye
     }
 
     //BUG 1
-    //if (choice2 > treasure_map || choice2 < curse)
-    if (choice2 > treasure_map && choice2 < curse)
+    if (choice2 > treasure_map || choice2 < curse)
+    //if (choice2 > treasure_map && choice2 < curse)
     {
         return -1;
     }

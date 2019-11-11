@@ -10,17 +10,50 @@ playdom: dominion.o playdom.c
 	gcc -o playdom playdom.c -g dominion.o rngs.o $(CFLAGS)
 #To run playdom you need to entere: ./playdom <any integer number> like ./playdom 10*/
 
-testDrawCard: testDrawCard.c dominion.o rngs.o
-	gcc  -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
+test1: unittest1.c dominion.o rngs.o
+	gcc  -o unittest1 -g  unittest1.c dominion.o rngs.o $(CFLAGS)
+
+test2: unittest2.c dominion.o rngs.o
+	gcc  -o unittest2 -g  unittest2.c dominion.o rngs.o $(CFLAGS)
+
+test3: unittest3.c dominion.o rngs.o
+	gcc  -o unittest3 -g  unittest3.c dominion.o rngs.o $(CFLAGS)
+
+test4: unittest4.c dominion.o rngs.o
+	gcc  -o unittest4 -g  unittest4.c dominion.o rngs.o $(CFLAGS)
+
+test5: unittest5.c dominion.o rngs.o
+	gcc  -o unittest5 -g  unittest5.c dominion.o rngs.o $(CFLAGS)
 
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
 
-runtests: testDrawCard 
-	./testDrawCard &> unittestresult.out
+runtests: unittest1
+	#./testDrawCard &> unittestresult.out
+	./unittest1.c &> unittestresult.out
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
+unittestresults: unittest1 unittest2 unittest3 unittest4 unittest5
+	./unittest1 >> unittestresults.out
+	echo "Ran unittest1... GCOV" >> unittestresults.out
+	gcov -b -f dominion.c >> unittestresults.out
+
+	./unittest2 >> unittestresults.out
+	echo "Ran unittest2... GCOV" >> unittestresults.out
+	gcov -b -f dominion.c >> unittestresults.out
+
+	./unittest3 >> unittestresults.out
+	echo "Ran unittest3... GCOV" >> unittestresults.out
+	gcov -b -f dominion.c >> unittestresults.out
+
+	./unittest4 >> unittestresults.out
+	echo "Ran unittest4... GCOV" >> unittestresults.out
+	gcov -b -f dominion.c >> unittestresults.out
+
+	./unittest5 >> unittestresults.out
+	echo "Ran unittest5... GCOV" >> unittestresults.out
+	gcov -b -f dominion.c >> unittestresults.out
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
@@ -28,4 +61,4 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest1 unittest2 unittest3 unittest4 unittest5
